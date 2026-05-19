@@ -13,7 +13,7 @@ const app = express();
 // CORS - Manual headers for Vercel
 app.use((req, res, next) => {
   const allowedOrigins = [
-    "https://class-final-hackathon-git-main-nida-nazs-projects-5bf8f651.vercel.app",
+    "https://class-final-hackathon.vercel.app",
     "http://localhost:5173",
   ];
 
