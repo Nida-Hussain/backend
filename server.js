@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require("cors");
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
@@ -11,13 +10,30 @@ connectDB();
 
 const app = express();
 
-// CORS
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "*",
-    credentials: true,
-  })
-);
+// CORS - Manual headers for Vercel
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    "https://class-final-hackathon-git-main-nida-nazs-projects-5bf8f651.vercel.app",
+    "http://localhost:5173",
+  ];
+
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin) || !origin) {
+    res.setHeader("Access-Control-Allow-Origin", origin || "*");
+  }
+
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+
+  // Handle preflight
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  next();
+});
 
 // Body parser
 app.use(express.json({ limit: "10mb" }));
