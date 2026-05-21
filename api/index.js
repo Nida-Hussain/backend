@@ -45,6 +45,10 @@ app.use("/api/quizzes", require("../routes/quizRoutes"));
 app.use("/api/stats", require("../routes/statsRoutes"));
 
 // Health check
+app.get("/", (req, res) => {
+  res.json({ status: "ok", message: "StudyBuddy AI API is running" });
+});
+
 app.get("/api/health", (req, res) => {
   res.json({ status: "ok", message: "StudyBuddy AI API is running" });
 });
