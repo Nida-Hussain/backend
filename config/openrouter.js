@@ -15,7 +15,7 @@ const generateContent = async (prompt) => {
         headers: {
           Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
-          "HTTP-Referer": "http://localhost:5173",
+          "HTTP-Referer": process.env.FRONTEND_URL || "https://class-final-hackathon.vercel.app",
           "X-Title": "StudyBuddy AI",
         },
       }
